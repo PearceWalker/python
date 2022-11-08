@@ -1,3 +1,4 @@
+
 import random
 
 class Player:
@@ -10,10 +11,13 @@ class Player:
 
 class TurnBasedGame:
     '''Base class for a turn based game'''
-    player = Player
+    player_class = Player
     def __init__(self, players: list = None):
         self.winner = None
+        self.player_type = ''
         self.players = []
+        self.player1 = ''
+        self.player2 = ''
         self.minimum_players = 2
         self.maximum_players = 10
 
@@ -27,7 +31,7 @@ class TurnBasedGame:
         add_player = "y"
         count = 1
         while add_player == "y":
-            self.players.append(self.player(count))
+            self.players.append(self.player_class(count))
             count += 1
             if self.maximum_players >= count > self.minimum_players:
                 add_player = input("Add another player (y/n)? ").lower()
@@ -38,8 +42,7 @@ class TurnBasedGame:
         '''Run at the beginning of every round'''
         self.winner = None
 
-        for player in self.players:
-            player.reset()
+        
 
     def play_round(self):
         '''Play a round of the game'''
@@ -54,7 +57,7 @@ class TurnBasedGame:
 
     def display_results(self):
         '''Print the results of the game'''
-        print(f"The winner is {self.winner.name}")
+        print(f"The winner is {self.winner}")
 
     def run(self):
         '''The main game loop for a turn based game'''
